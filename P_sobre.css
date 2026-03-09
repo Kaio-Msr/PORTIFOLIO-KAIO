@@ -1,0 +1,223 @@
+body {
+    background: #080808;
+    line-height: 1.3;
+    min-height: 100vh;
+    font-family: 'Syncopate', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    height: 100%;
+    width: 100%;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* evita scroll e deixa partículas preencherem */
+}
+
+/* container das partículas */
+#particles {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* canvas do particleground sempre atrás */
+.pg-canvas {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    z-index: 0 !important;   /* fica atrás do conteúdo */
+    pointer-events: none;    /* não intercepta cliques */
+    filter: blur(3px);       /* blur opcional */
+    opacity: 0.7;            /* transparência opcional */
+}
+
+/* botão baixar currículo */
+#curriculo {
+    position: fixed;
+    font-size: 1.5em;
+    align-items: center;
+    margin-top: 2%;
+    left: 250px;
+    color: #73ffdc;
+    text-decoration: none;
+    z-index: 1000; /* garante que fique por cima */
+}
+
+/* menu */
+#navegacao {
+    display: flex;  
+    gap: 30px;
+    align-items: center;
+    z-index: 300;             /* fica acima do fundo */
+    position: relative;       /* cria camada própria */
+}
+
+#navegacao a { 
+    gap: 30px;
+    font-size: 0.8em; 
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-family: "californian FB", monospace;
+    position: relative; 
+    z-index: 301;             /* cada link clicável acima do fundo */
+}
+
+#navegacao a#sobre {
+    color: #808080;
+    cursor: default;
+    pointer-events: none;
+}
+
+#navegacao a:hover {
+    color: #73ffdc;
+    cursor: pointer;
+}
+
+#topo {
+    position: fixed;          /* mantém fixo no topo */
+    top: 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    padding: 20px 100px;
+    z-index: 500;             /* topo sempre acima do fundo */
+}
+
+/* principal */
+#principal {
+    display: flex;
+    gap: 200px;    
+    align-items: center;  
+    justify-content: space-between; 
+    padding: 20px 100px;     
+    height: 100vh;
+    box-sizing: border-box;    
+    position: relative;
+    z-index: 200;             /* acima do fundo */
+}
+
+#fotofundo img {
+    width: 400px;
+    height: 600px;
+    border-radius: 50px;
+    object-fit: cover;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+}
+
+#escrita h1 {
+    color: #73ffdc;
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+#escrita h4 {
+    color: #ffffff;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+#escrita p {
+    font-size: 1em;
+    color: #ffffff;
+    text-align: justify;
+}
+
+#escrita span {
+    color: #ff0000;
+}
+
+@media (max-width: 1024px) {
+    #principal {
+        flex-direction: column;
+        gap: 50px;
+        padding: 150px 40px 50px;
+    }
+
+    #fotofundo img {
+        width: 300px;
+        height: auto;
+    }
+
+    #escrita h1 {
+        font-size: 1.8em;
+    }
+
+    #escrita h4 {
+        font-size: 1.3em;
+    }
+}
+
+/* Celulares grandes */
+@media (max-width: 768px) {
+    #navegacao {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    #fotofundo img {
+        width: 260px;
+        height: auto;
+    }
+
+    #escrita {
+        max-width: 100%;
+    }
+
+    #escrita h1 {
+        font-size: 1.5em;
+    }
+
+    #escrita h4 {
+        font-size: 1.1em;
+    }
+
+    #escrita p {
+        font-size: 0.95em;
+    }
+
+    a[target="_blank"] i.fab.fa-github {
+        font-size: 2em;
+        top: 10px;
+        right: 20px;
+    }
+
+    #curriculo {
+        font-size: 1.1em;
+        margin-top: 15px;
+    }
+}
+
+/* Celulares pequenos */
+@media (max-width: 480px) {
+    #fotofundo img {
+        width: 100%;
+        border-radius: 20px;
+    }
+
+    #principal {
+        padding: 130px 20px 40px;
+    }
+
+    #escrita h1 {
+        font-size: 1.3em;
+    }
+
+    #escrita h4 {
+        font-size: 1em;
+    }
+
+    #escrita p {
+        font-size: 0.9em;
+    }
+
+    #curriculo {
+        font-size: 1em;
+        padding: 10px 15px;
+    }
+}

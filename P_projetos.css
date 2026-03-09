@@ -1,0 +1,217 @@
+/* ===================== */
+/* PROJETOS - CARDS */
+/* ===================== */
+
+#projetos {
+    display: flex;
+    flex-direction: column; /* duas linhas */
+    gap: 30px;              /* espaço entre as linhas */
+    margin-top: 120px;      /* distância do topo */
+    position: relative;
+    z-index: 1;             /* garante que fique acima das partículas */
+}
+/* Reset básico */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* evita scroll */
+    font-family: 'Syncopate', sans-serif;
+    line-height: 1.3;
+    background: #080808; /* cor de fundo por trás das partículas */
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Container das partículas */
+#particles {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Garante que o conteúdo fique acima do canvas */
+#topo, #principal {
+    position: relative;
+    z-index: 1;
+}
+
+/* ===================== */
+/* TOPO / NAVEGAÇÃO */
+/* ===================== */
+
+#topo {
+    position: fixed;       
+    display: flex;
+    top: 5%;
+    justify-content: space-between;
+    align-items: center; 
+    padding: 20px 100px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#navegacao {
+    display: flex;
+    gap: 30px;               /* espaço entre os itens */
+    align-items: center;     /* alinha verticalmente ao centro */    
+}
+
+/* Links do menu */
+#navegacao a { 
+    font-size: 0.8em;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-family: "californian FB", monospace;
+    transition: color 0.3s ease;
+}
+
+#navegacao a:hover {
+    color: #73ffdc;  /* cor ao passar o mouse */
+    cursor: pointer;
+}
+
+.pg-canvas {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    width: 1920px !important;   /* tamanho fixo */
+    height: 1080px !important;  /* tamanho fixo */
+    max-width: 100%;
+    max-height: 100%;
+    z-index: 0 !important; /* garante que fique atrás */
+    filter: blur(4px);      /* 👈 aplica o desfoque */
+    opacity: 0.8;           /* 👈 opcional: deixa mais suave */
+    pointer-events: none; 
+}
+
+/* ===================== */
+/* CONTEÚDO PRINCIPAL */
+/* ===================== */
+
+.linha {
+    display: flex;
+    justify-content: center;
+    gap: 40px; /* espaço entre os cards da mesma linha */
+}
+
+.card {
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.1); /* cinza translúcido */
+    border-radius: 10px;
+    padding: 20px;
+    width: 500px;   /* largura fixa dos cards */
+    height: 180px;  /* altura fixa dos cards */
+    color: #fff;
+    font-family: "californian FB", monospace;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.projetos-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 colunas */
+    gap: 50px; /* espaço entre os cards */
+    column-gap: 200px; /* <- distância HORIZONTAL entre os cards */
+    row-gap: 70px;     /* <- distância VERTICAL entre os cards */
+    max-width: 1000px; /* largura máxima da grade */
+    margin-left: 350px ; /* centraliza na tela */
+    margin-top: 100px ; /* centraliza na tela */
+}
+
+.projeto-card {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1); /* fundo translúcido */
+    border-radius: 10px;
+    padding: 0 10px;
+    width: 500px;   /* 👈 largura maior (ajuste conforme quiser) */
+    height: 180px;  /* 👈 altura fixa */
+    color: #fff;
+    font-family: "californian FB", monospace;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    gap: 20px; /* espaço entre imagem e texto */
+    position: relative; /* necessário pro overlay */
+}
+
+.projeto-card img {
+    width: 150px;   /* 👈 tamanho fixo da imagem */
+    height: auto;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.projeto-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.7);
+}
+
+.projeto-card h3 {
+    font-family: "californian FB", monospace;
+    font-size: 1.5em;
+    color: #73ffdc;
+    margin: 10px;
+}
+
+.projeto-card p {
+    font-family: "californian FB", monospace;
+    font-size: 1.3em;
+}
+
+/* ===================== */
+/* OVERLAY POPUP (1:1) */
+/* ===================== */
+
+.projeto-card .overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;   /* tamanho do popup */
+  height: 200px;  /* quadrado 1:1 */
+  transform: translate(-50%, -50%) scale(0.8);
+  border-radius: 10px;
+  overflow: hidden;
+  opacity: 0;
+  z-index: 10;
+  pointer-events: none;
+  background: rgba(0,0,0,0.8);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.projeto-card:hover .overlay {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  pointer-events: auto;
+}
+
+.projeto-card .overlay .slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* mantém proporção */
+  opacity: 0;
+  animation: slidefade 9s infinite;
+  animation-play-state: paused;
+}
+
+.projeto-card:hover .overlay .slide {
+  animation-play-state: running;
+}
+
+/* delays pras imagens */
+.projeto-card .overlay .slide:nth-child(1) { animation-delay: 0s; }
+.projeto-card .overlay .slide:nth-child(2) { animation-delay: 3s; }
+.projeto-card .overlay .slide:nth-child(3) { animation-delay: 6s; }
+
+@keyframes slidefade {
+  0%   { opacity: 0; }
+  5%   { opacity: 1; }
+  30%  { opacity: 1; }
+  35%  { opacity: 0; }
+  100% { opacity: 0; }
+}
